@@ -1,0 +1,334 @@
+/* ── RESET ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── VARIABLES ── */
+:root {
+  --teal-dark:  #4a7c72;
+  --teal-mid:   #5f9e93;
+  --teal-light: #7ebfb5;
+  --bg:         #e8eeec;
+  --card-bg:    #d4e0dc;
+  --card-alt:   #c6d8d4;
+  --text:       #1a2e2a;
+  --muted:      #5a7872;
+  --white:      #f5faf8;
+}
+
+/* ── BASE ── */
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ── HEADER ── */
+header {
+  background: var(--teal-dark);
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  align-items: center;
+  padding: 28px 40px 28px 0;
+  min-height: 120px;
+}
+
+.header-photo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.photo-placeholder {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  border: 2px dashed rgba(255,255,255,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.6);
+  font-size: 11px;
+  text-align: center;
+}
+
+.header-title { text-align: center; }
+
+header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.6rem, 4vw, 2.6rem);
+  color: var(--white);
+  letter-spacing: 0.04em;
+  line-height: 1.15;
+}
+
+/* ── NAV ── */
+nav {
+  background: var(--teal-mid);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 40px;
+  height: 46px;
+}
+
+nav a {
+  color: var(--white);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+nav a:hover,
+nav a.active { background: rgba(255,255,255,0.15); }
+
+/* ── SCROLL INDICATOR (carré fixe qui suit la page) ── */
+.scroll-indicator {
+  position: fixed;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 10px;
+  background: var(--teal-dark);
+  border-radius: 2px;
+  opacity: 0.7;
+  transition: top 0.1s linear;
+  z-index: 999;
+}
+
+/* ── CARD COMMUNE ── */
+.card {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 22px 26px;
+  box-shadow: 0 2px 12px rgba(74,124,114,0.1);
+  border-left: 4px solid var(--teal-light);
+}
+
+/* ══════════════════════════════
+   PAGE ACCUEIL
+══════════════════════════════ */
+.page-accueil main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  padding: 32px 40px;
+  max-width: 1000px;
+  margin: 0 auto;
+  align-items: start;
+}
+
+.col-left .card { border-left-color: var(--teal-light); }
+
+.col-right {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.col-right .card { border-left-color: var(--teal-dark); }
+
+.card p {
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+
+.card p:last-child { margin-bottom: 0; }
+
+.watermark {
+  font-size: 0.7rem;
+  color: rgba(90,120,114,0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 6px;
+}
+
+/* ══════════════════════════════
+   PAGE COMPÉTENCES
+══════════════════════════════ */
+.page-competences main {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 32px 40px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.comp-card {
+  border-left: 4px solid var(--teal-light);
+  transition: transform 0.18s, box-shadow 0.18s;
+  cursor: default;
+}
+
+.comp-card:hover {
+  transform: translateX(4px);
+  box-shadow: 0 4px 20px rgba(74,124,114,0.2);
+}
+
+.comp-card:nth-child(even) {
+  background: var(--card-alt);
+  border-left-color: var(--teal-dark);
+}
+
+/* Cartes compétences cliquables */
+a.comp-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+a.comp-link:hover {
+  transform: translateX(6px);
+  box-shadow: 0 4px 20px rgba(74,124,114,0.25);
+}
+
+a.comp-link::after {
+  content: '→';
+  float: right;
+  color: var(--teal-mid);
+  font-size: 1rem;
+  opacity: 0.7;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+a.comp-link:hover::after {
+  opacity: 1;
+  transform: translateX(4px);
+}
+
+.comp-card h2 {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--teal-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+
+.comp-card p {
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+/* ══════════════════════════════
+   PAGE DÉTAIL COMPÉTENCE
+══════════════════════════════ */
+.page-detail main {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 32px 40px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.card-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--teal-dark);
+  margin-bottom: 8px;
+}
+
+.card-title {
+  background: var(--card-alt);
+  border-left-color: var(--teal-dark);
+  text-align: center;
+}
+
+.card-title p {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--teal-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.card-project-header { background: var(--card-bg); }
+
+.card-project-header input,
+.card-project-body input {
+  width: 100%;
+  border: none;
+  background: transparent;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.92rem;
+  color: var(--muted);
+  outline: none;
+  padding: 2px 0;
+}
+
+.card-project-header input::placeholder,
+.card-project-body input::placeholder {
+  color: var(--muted);
+  opacity: 0.7;
+}
+
+.card-project-body {
+  background: var(--card-alt);
+  border-left-color: var(--teal-dark);
+  min-height: 80px;
+}
+
+/* ── BOUTON CV TÉLÉCHARGEABLE ── */
+.cv-download {
+  position: fixed;
+  bottom: 28px;
+  right: 24px;
+  z-index: 1000;
+}
+
+.cv-download a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--teal-dark);
+  color: var(--white);
+  text-decoration: none;
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 10px 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(74,124,114,0.35);
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  border: 2px dashed rgba(255,255,255,0.35);
+}
+
+.cv-download a:hover {
+  background: var(--teal-mid);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(74,124,114,0.45);
+}
+
+.cv-download .cv-icon { font-size: 1rem; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 640px) {
+  header {
+    grid-template-columns: 100px 1fr;
+    padding: 18px 20px 18px 0;
+  }
+  .page-accueil main {
+    grid-template-columns: 1fr;
+    padding: 20px;
+  }
+  .page-competences main,
+  .page-detail main {
+    padding: 20px;
+  }
+  nav { padding: 0 20px; }
+}

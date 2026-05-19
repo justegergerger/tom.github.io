@@ -1,0 +1,30 @@
+<?php
+
+use Dom\Text;
+$lines = file("presentation_musee_louvre");
+$i = 1;
+$nbpara = 0;
+print_r(count($lines));
+foreach($lines as $ligne){
+    $temp = explode( "=" , $ligne);
+    print_r("\n");
+    if (($temp[0] == "TITLE")){
+        touch("para$nbpara");
+        $para = fopen("para$nbpara",'r+');
+        $nbpara = $nbpara + 1;
+        fwrite($para, $temp[1]);
+    }
+    else if (($temp[0] != "SUB_SECT") && ($temp[0] != "TEXT")){
+        fclose( $para);
+        touch("para$nbpara");
+        $para = fopen("para$nbpara",'r+');
+        fwrite($para, $temp[1]);
+        $nbpara = $nbpara + 1;
+    }
+    else{
+        print_r($temp[1]);
+        fwrite($para, $temp[1]);
+    }
+    $i = $i + 1 ;
+}
+?>
